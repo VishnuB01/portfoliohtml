@@ -11,15 +11,15 @@ const navLinks = document.querySelectorAll('.nav-link');
 // Mobile menu toggle
 navToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
-    
+
     // Animate hamburger icon
     const spans = navToggle.querySelectorAll('span');
-    spans[0].style.transform = navMenu.classList.contains('active') 
-        ? 'rotate(45deg) translateY(10px)' 
+    spans[0].style.transform = navMenu.classList.contains('active')
+        ? 'rotate(45deg) translateY(10px)'
         : 'none';
     spans[1].style.opacity = navMenu.classList.contains('active') ? '0' : '1';
-    spans[2].style.transform = navMenu.classList.contains('active') 
-        ? 'rotate(-45deg) translateY(-10px)' 
+    spans[2].style.transform = navMenu.classList.contains('active')
+        ? 'rotate(-45deg) translateY(-10px)'
         : 'none';
 });
 
@@ -27,7 +27,7 @@ navToggle.addEventListener('click', () => {
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
-        
+
         // Reset hamburger icon
         const spans = navToggle.querySelectorAll('span');
         spans[0].style.transform = 'none';
@@ -41,14 +41,14 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     // Add scrolled class for styling
     if (currentScroll > 100) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -56,16 +56,16 @@ window.addEventListener('scroll', () => {
 window.addEventListener('scroll', () => {
     let current = '';
     const sections = document.querySelectorAll('section[id]');
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
-        
+
         if (window.pageYOffset >= sectionTop - 200) {
             current = section.getAttribute('id');
         }
     });
-    
+
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === `#${current}`) {
@@ -82,7 +82,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        
+
         if (target) {
             const offsetTop = target.offsetTop - 80;
             window.scrollTo({
@@ -124,7 +124,7 @@ const observeElements = () => {
         ...document.querySelectorAll('.cert-card'),
         ...document.querySelectorAll('.contact-content')
     ];
-    
+
     elementsToObserve.forEach(el => {
         el.style.opacity = '0';
         observer.observe(el);
@@ -165,7 +165,7 @@ const applyStaggerAnimation = () => {
         document.querySelector('.education-grid'),
         document.querySelector('.certifications-grid')
     ];
-    
+
     grids.forEach(grid => {
         if (grid) {
             Array.from(grid.children).forEach(child => {
@@ -191,11 +191,11 @@ if (document.readyState === 'loading') {
 const createParticles = () => {
     const animatedBg = document.querySelector('.animated-bg');
     const particleCount = 30;
-    
+
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
-        
+
         // Random positioning
         particle.style.cssText = `
             position: absolute;
@@ -209,10 +209,10 @@ const createParticles = () => {
             animation: float ${Math.random() * 10 + 10}s ease-in-out infinite;
             animation-delay: ${Math.random() * 5}s;
         `;
-        
+
         animatedBg.appendChild(particle);
     }
-    
+
     // Add keyframes for particle animation
     if (!document.getElementById('particle-animation')) {
         const style = document.createElement('style');
@@ -253,7 +253,7 @@ if (typingText) {
     const text = typingText.textContent;
     typingText.textContent = '';
     let charIndex = 0;
-    
+
     const typeWriter = () => {
         if (charIndex < text.length) {
             typingText.textContent += text.charAt(charIndex);
@@ -261,7 +261,7 @@ if (typingText) {
             setTimeout(typeWriter, 100);
         }
     };
-    
+
     // Start typing after a delay
     setTimeout(typeWriter, 1000);
 }
@@ -279,7 +279,7 @@ techTags.forEach(tag => {
         tag.style.borderColor = randomColor;
         tag.style.color = randomColor;
     });
-    
+
     tag.addEventListener('mouseleave', () => {
         tag.style.borderColor = '';
         tag.style.color = '';
@@ -294,7 +294,7 @@ const animateCounter = (element, target, duration = 2000) => {
     const start = 0;
     const increment = target / (duration / 16);
     let current = start;
-    
+
     const updateCounter = () => {
         current += increment;
         if (current < target) {
@@ -304,7 +304,7 @@ const animateCounter = (element, target, duration = 2000) => {
             element.textContent = target + '+';
         }
     };
-    
+
     updateCounter();
 };
 
@@ -313,11 +313,11 @@ const statObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const statNumber = entry.target.querySelector('.stat-number');
             const targetValue = parseFloat(statNumber.textContent);
-            
+
             if (!isNaN(targetValue)) {
                 animateCounter(statNumber, targetValue, 2000);
             }
-            
+
             statObserver.unobserve(entry.target);
         }
     });
@@ -352,15 +352,15 @@ document.addEventListener('mousemove', (e) => {
             z-index: 9999;
             animation: cursorFade 0.5s ease forwards;
         `;
-        
+
         document.body.appendChild(trail);
         cursorTrail.push(trail);
-        
+
         if (cursorTrail.length > trailLength) {
             const oldTrail = cursorTrail.shift();
             oldTrail.remove();
         }
-        
+
         setTimeout(() => {
             trail.remove();
         }, 500);
@@ -388,17 +388,30 @@ if (!document.getElementById('cursor-animation')) {
 
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
-    
-    // Parallax for hero section
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-    }
-    
-    // Parallax for code snippet
-    const codeSnippet = document.querySelector('.code-snippet');
-    if (codeSnippet) {
-        codeSnippet.style.transform = `translateY(${scrolled * 0.2}px)`;
+
+    // Only apply parallax when still in hero section to prevent overlap
+    const heroSection = document.querySelector('.hero');
+    if (heroSection) {
+        const heroHeight = heroSection.offsetHeight;
+
+        // Only apply parallax if we're still within the hero section
+        if (scrolled < heroHeight) {
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.transform = `translateY(${scrolled * 0.15}px)`;
+            }
+
+            const codeSnippet = document.querySelector('.code-snippet');
+            if (codeSnippet) {
+                codeSnippet.style.transform = `translateY(${scrolled * 0.1}px)`;
+            }
+        } else {
+            // Reset transform when scrolled past hero section
+            const heroContent = document.querySelector('.hero-content');
+            const codeSnippet = document.querySelector('.code-snippet');
+            if (heroContent) heroContent.style.transform = 'translateY(0)';
+            if (codeSnippet) codeSnippet.style.transform = 'translateY(0)';
+        }
     }
 });
 
@@ -439,7 +452,7 @@ const throttle = (func, limit) => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && navMenu.classList.contains('active')) {
         navMenu.classList.remove('active');
-        
+
         const spans = navToggle.querySelectorAll('span');
         spans[0].style.transform = 'none';
         spans[1].style.opacity = '1';
