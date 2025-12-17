@@ -472,6 +472,58 @@ if (prefersReducedMotion.matches) {
 }
 
 // ============================================
+// EXPERIENCE STACK EXPANSION
+// ============================================
+
+const experienceStack = document.getElementById('experienceStack');
+const stackTrigger = document.querySelector('.stack-trigger');
+
+if (stackTrigger) {
+    // Manual click toggle
+    stackTrigger.addEventListener('click', () => {
+        experienceStack.classList.toggle('expanded');
+    });
+
+    // Auto-expand when scrolling into view
+    const experienceSection = document.getElementById('experience');
+    let hasAutoExpanded = false;
+
+    const experienceObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAutoExpanded) {
+                // Wait a moment for smooth effect
+                setTimeout(() => {
+                    experienceStack.classList.add('expanded');
+                    hasAutoExpanded = true;
+                }, 300);
+            }
+        });
+    }, {
+        threshold: 0.3 // Trigger when 30% visible
+    });
+
+    if (experienceSection) {
+        experienceObserver.observe(experienceSection);
+    }
+}
+
+// Close expansion when clicking outside
+document.addEventListener('click', (e) => {
+    if (experienceStack && experienceStack.classList.contains('expanded')) {
+        if (!e.target.closest('#experienceStack')) {
+            experienceStack.classList.remove('expanded');
+        }
+    }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && experienceStack) {
+        experienceStack.classList.remove('expanded');
+    }
+});
+
+// ============================================
 // CONSOLE EASTER EGG
 // ============================================
 
