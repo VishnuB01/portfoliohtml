@@ -720,7 +720,7 @@ body {
     min-height: 400px;
     display: flex;
     align-items: center;
-    gap: var(--spacing-3xl);
+    gap: var(--spacing-xl);
     transition: all var(--transition-base);
 }
 
@@ -835,17 +835,23 @@ body {
 }
 
 .experience-stack.expanded .stack-trigger {
-    transform: scale(0.8);
-    opacity: 0.5;
+    transform: scale(0);
+    opacity: 0;
+    width: 0;
+    min-width: 0;
+    overflow: hidden;
+    flex-shrink: 1;
+    pointer-events: none;
 }
 
 .exp-card {
     flex: 1;
-    min-width: 320px;
+    min-width: 280px;
+    max-width: 600px;
     background: var(--bg-card);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
     position: relative;
     transition: all var(--transition-base);
 }
